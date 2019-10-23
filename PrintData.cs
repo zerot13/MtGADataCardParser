@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text;
 
 namespace MtGACardDataParser
 {
@@ -27,7 +28,9 @@ namespace MtGACardDataParser
 
         private static object uglyName(string name)
         {
-            return name.Replace(' ', '_').ToLower();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(name.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray());
+            return sb.ToString().Replace(' ', '_').ToLower();
         }
     }
 }
