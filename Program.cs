@@ -10,7 +10,6 @@ namespace MtGACardDataParser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             string cardDataString = File.ReadAllText("data_cards.json");
             string cardDataKeyFile = File.ReadAllText("data_loc.json");
             string cardEnumsFile = File.ReadAllText("data_enums.json");
@@ -28,8 +27,42 @@ namespace MtGACardDataParser
                 set = j.set,
                 types = convertTypes(j.types, typeEnumSet.First(t => t.name == "CardType").values, dataKeySet.keys),
                 subtypes = convertTypes(j.subtypes, typeEnumSet.First(t => t.name == "SubType").values, dataKeySet.keys),
-                name = convertName(j.titleId, dataKeySet.keys)
+                name = convertName(j.titleId, dataKeySet.keys),
+                colors = convertColors(j.colors, typeEnumSet.First(t => t.name == "Color").values, dataKeySet.keys),
+                colorIdentity = convertColorIdentity(j.colorIdentity, typeEnumSet.First(t => t.name == "Color").values, dataKeySet.keys),
+                castingcost = CostData.ConvertCost(j.castingcost),
+                rarity = RarityData.ConvertRarity(j.rarity)
              });
+        }
+
+        private static string convertColors(string[] colors, DataKeyJson[] values, DataKeyJson[] dataKey)
+        {
+            if(colors.Length == 0)
+            {
+                return "['Colorless']";
+            }
+            List<string> enumTypeList = colors.ToList().ConvertAll(t => values.First(v => v.id == t).text);
+            string convertedColors = "['" + string.Join("', '", enumTypeList.ConvertAll(e => convertName(e, dataKey))) + "']";
+
+            return convertedColors;
+        }
+
+        private static string convertColorIdentity(string[] colorId, DataKeyJson[] values, DataKeyJson[] dataKey)
+        {
+            if(colorId.Length == 0)
+            {
+                return "[]";
+            }
+            List<string> enumTypeList = colorId.ToList().ConvertAll(t => values.First(v => v.id == t).text);
+            string convertedColors = "['" + string.Join("', '", enumTypeList.ConvertAll(e => convertAndShortenColor(e, dataKey))) + "']";
+
+            return convertedColors;
+        }
+
+        private static string convertAndShortenColor(string colorId, DataKeyJson[] dataKey)
+        {
+            string fullColor = dataKey.First(k => k.id == colorId).text;
+            return ColorData.ShortenColorName(fullColor);
         }
 
         private static string convertTypes(string[] types, DataKeyJson[] values, DataKeyJson[] dataKey)
