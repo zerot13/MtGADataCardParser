@@ -27,7 +27,7 @@ namespace MtGACardDataParser
                 CollectorNumber = j.CollectorNumber,
                 set = j.set,
                 types = convertTypes(j.types, typeEnumSet.First(t => t.name == "CardType").values, dataKeySet.keys),
-                subtypes = j.subtypes,
+                subtypes = convertTypes(j.subtypes, typeEnumSet.First(t => t.name == "SubType").values, dataKeySet.keys),
                 name = convertName(j.titleId, dataKeySet.keys)
              });
         }
