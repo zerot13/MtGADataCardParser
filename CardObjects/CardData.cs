@@ -19,7 +19,7 @@ namespace MtGACardDataParser
         public string CollectorNumber;
         public string set;
         public string types;
-        public string[] subtypes;
+        public string subtypes;
     }
 
     public class DataKeySetJson
