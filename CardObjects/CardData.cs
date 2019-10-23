@@ -9,6 +9,10 @@ namespace MtGACardDataParser
         public string set;
         public string[] types;
         public string[] subtypes;
+        public string[] colors;
+        public string[] colorIdentity;
+        public string castingcost;
+        public string rarity;
     }
 
     public class CardDataFull
@@ -20,6 +24,10 @@ namespace MtGACardDataParser
         public string set;
         public string types;
         public string subtypes;
+        public string colors;
+        public string colorIdentity;
+        public string castingcost;
+        public string rarity;
     }
 
     public class DataKeySetJson
