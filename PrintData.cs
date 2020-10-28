@@ -20,8 +20,8 @@ namespace MtGACardDataParser
 
         public static string FormatLine(CardDataFull card)
         {
-            string line = "throne_of_eldraine.addCard(new Card({ " + string.Format("mtgaID: {0}, setNumber: {1}, name: \"{2}\", prettyName: \"{3}\", cardType: \"{4}\", set: \"ELD\", subTypes: \"{5}\", colorIdentity: {6}, colors: {7}, rarity: \"{8}\", cost: {9}, collectible: {10}",
-            card.mtgaId, card.CollectorNumber, uglyName(card.name), card.name, card.types, card.subtypes, card.colorIdentity, card.colors, card.rarity, card.castingcost, card.isCollectible) + " }))";
+            string line = string.Format("mtgaID: {0}, setNumber: {1}, name: \"{2}\", prettyName: \"{3}\", cardType: \"{4}\", set: \"ELD\", subTypes: \"{5}\", colorIdentity: {6}, colors: {7}, rarity: \"{8}\", cost: {9}, collectible: {10}",
+            card.mtgaId, card.CollectorNumber, uglyName(card.name), card.name, card.types, card.subtypes, card.colorIdentity, card.colors, card.rarity, card.castingcost, card.isCollectible);
 
             return line;
         }
