@@ -8,14 +8,14 @@ namespace MtGACardDataParser
 {
     public static class PrintData
     {
-        public static void PrintDataToFile(List<CardDataFull> cardList)
+        public static void PrintDataToFile(List<CardDataFull> cardList, string filename)
         {
             List<string> printCardList = new List<string>();
             foreach(CardDataFull card in cardList)
             {
                 printCardList.Add(FormatLine(card));
             }
-            File.WriteAllLines("finalCardList.txt", printCardList);
+            File.WriteAllLines(filename, printCardList);
         }
 
         public static string FormatLine(CardDataFull card)
